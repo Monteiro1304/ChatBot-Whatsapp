@@ -23,6 +23,11 @@ Ele permite automatizar conversas, enviar mensagens, responder clientes e muito 
 - qrcode-terminal
 
 ---
+## 🖼️ Demonstração
+
+Veja abaixo uma demonstração do chatbot funcionando:
+
+![Demonstração do Chatbot](./chatbot.PNG)
 
 ## 📦 Instalação e Uso
 
