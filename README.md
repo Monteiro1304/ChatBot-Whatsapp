@@ -27,7 +27,7 @@ Ele permite automatizar conversas, enviar mensagens, responder clientes e muito 
 
 Veja abaixo uma demonstração do chatbot funcionando:
 
-![Demonstração do Chatbot](./chatbot.PNG)
+![Demonstração do Chatbot](videoportifolio.gif)
 
 ## 📦 Instalação e Uso
 
