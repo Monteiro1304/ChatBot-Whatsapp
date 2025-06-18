@@ -26,6 +26,10 @@ client.on('qr', (qr) => {
 
     // QR Code na interface web
     qrcode.toDataURL(qr, (err, url) => {
+        if (err) {
+            console.error('Erro ao gerar QR Code web:', err);
+            return;
+        }
         qrCodeData = url;
         console.log('✅ QR Code gerado na interface web!');
     });
@@ -34,7 +38,13 @@ client.on('qr', (qr) => {
 // Evento quando conecta
 client.on('ready', () => {
     console.log('🤖 WhatsApp conectado com sucesso!');
-    qrCodeData = null;
+    qrCodeData = null; // Limpa QR porque já conectou
+});
+
+// Evento quando desconecta
+client.on('disconnected', (reason) => {
+    console.log('⚠️ WhatsApp desconectado:', reason);
+    qrCodeData = null; // Força novo QR Code na próxima inicialização
 });
 
 // Responde mensagens
@@ -174,20 +184,33 @@ app.get('/', (req, res) => {
             <div style="text-align:center;">
                 <h1>🤖 Escaneie o QR Code para conectar no WhatsApp</h1>
                 <img src="${qrCodeData}" style="width:300px;"/>
-                <p>Após escanear, atualize esta página.</p>
+                <p>Após escanear, aguarde a conexão e atualize esta página.</p>
+                <p><a href="/logout">🗑️ Apagar sessão e gerar novo QR Code</a></p>
             </div>
         `);
     } else {
-        res.send('<h1>✅ WhatsApp conectado!</h1>');
+        res.send(`
+            <div style="text-align:center;">
+                <h1>✅ WhatsApp conectado!</h1>
+                <p><a href="/logout">🗑️ Apagar sessão e gerar novo QR Code</a></p>
+            </div>
+        `);
     }
 });
 
-// Rota para logout e apagar sessão
+// Rota para logout - apagar sessão e reiniciar
 app.get('/logout', async (req, res) => {
     try {
         await client.logout();
         fs.rmSync('./.wwebjs_auth', { recursive: true, force: true });
-        res.send('🗑️ Sessão apagada. Atualize a página para gerar novo QR Code.');
+        qrCodeData = null;
+        res.send(`
+            <div style="text-align:center;">
+                <h1>🗑️ Sessão apagada.</h1>
+                <p>Atualize a página para gerar novo QR Code.</p>
+                <a href="/">Voltar</a>
+            </div>
+        `);
         console.log('🗑️ Sessão apagada.');
     } catch (error) {
         res.send('❌ Erro ao apagar sessão.');
@@ -202,4 +225,3 @@ app.listen(port, () => {
 
 // Inicializa WhatsApp
 client.initialize();
-
