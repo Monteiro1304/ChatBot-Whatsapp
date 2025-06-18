@@ -1,5 +1,6 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode');
+const qrcodeTerminal = require('qrcode-terminal');
 const express = require('express');
 const fs = require('fs');
 
@@ -17,18 +18,26 @@ const client = new Client({
     }
 });
 
+// Evento QR Code - Terminal e Web
 client.on('qr', (qr) => {
+    // QR Code no terminal
+    qrcodeTerminal.generate(qr, { small: true });
+    console.log('✅ QR Code gerado no terminal!');
+
+    // QR Code na interface web
     qrcode.toDataURL(qr, (err, url) => {
         qrCodeData = url;
-        console.log('✅ QR Code gerado! Escaneie para conectar ao WhatsApp.');
+        console.log('✅ QR Code gerado na interface web!');
     });
 });
 
+// Evento quando conecta
 client.on('ready', () => {
     console.log('🤖 WhatsApp conectado com sucesso!');
     qrCodeData = null;
 });
 
+// Responde mensagens
 client.on('message', async msg => {
     const texto = msg.body.toLowerCase().trim();
 
@@ -158,7 +167,7 @@ client.on('message', async msg => {
     }
 });
 
-// ✅ Servidor Express para exibir QR Code no navegador (Railway)
+// Rota Web - Exibir QR Code no navegador
 app.get('/', (req, res) => {
     if (qrCodeData) {
         res.send(`
@@ -173,7 +182,7 @@ app.get('/', (req, res) => {
     }
 });
 
-// ✅ Rota para logout e limpar sessão
+// Rota para logout e apagar sessão
 app.get('/logout', async (req, res) => {
     try {
         await client.logout();
@@ -186,8 +195,11 @@ app.get('/logout', async (req, res) => {
     }
 });
 
+// Inicia servidor Express
 app.listen(port, () => {
     console.log(`🌐 Servidor rodando na porta ${port}`);
 });
 
+// Inicializa WhatsApp
 client.initialize();
+
