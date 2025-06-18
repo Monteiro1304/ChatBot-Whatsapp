@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 let qrCodeData = null;
 
-// ✅ Ajuste para ambientes em nuvem (Railway, Render, etc.)
+// Configuração do WhatsApp Client
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
@@ -20,12 +20,12 @@ const client = new Client({
 client.on('qr', (qr) => {
     qrcode.toDataURL(qr, (err, url) => {
         qrCodeData = url;
-        console.log('🚀 QR Code gerado! Acesse a URL do seu Railway para escanear.');
+        console.log('✅ QR Code gerado! Escaneie para conectar ao WhatsApp.');
     });
 });
 
 client.on('ready', () => {
-    console.log('✅ WhatsApp conectado!');
+    console.log('🤖 WhatsApp conectado com sucesso!');
     qrCodeData = null;
 });
 

@@ -1,17 +1,17 @@
-
 {
-  "name": "chatbot_starvisa",
+  "name": "chatbot-whatsapp",
   "version": "1.0.0",
-  "description": "Chatbot WhatsApp StarVisa Corretora",
+  "description": "ChatBot WhatsApp Starvisa",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
+  "keywords": [],
   "author": "Wesley Monteiro",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "qrcode": "^1.5.1",
-    "whatsapp-web.js": "^1.23.0"
+    "whatsapp-web.js": "^1.21.0"
   }
 }
