@@ -46,8 +46,10 @@ Digite o número da opção desejada:
 1️⃣ Seguro Auto 🚗
 2️⃣ Seguro Vida ❤️
 3️⃣ Plano de Saúde 🏥
-4️⃣ Seguro de Cargas 🚛
-5️⃣ Outras dúvidas ❓
+4️⃣ Seguro Residencial 🏠
+5️⃣ Seguro Empresarial 🏭
+6️⃣ Consórcio 💰
+7️⃣ Demais Assuntos 🤔
 
 *Digite 0 para voltar ao menu a qualquer momento.*`;
 
@@ -60,21 +62,16 @@ Digite o número da opção desejada:
             await msg.reply(
 `🚗 *Seguro Auto – Starvisa Seguros*
 
-✅ Cobertura: colisão, incêndio, roubo e furto.
-✅ Protege passageiros e terceiros.
+✅ Cobertura: colisão, incêndio, roubo e furtos.
+✅ Cobertura: danos materiais e corporais a terceiros.
 
-🛠️ *Benefícios*:
-- Guincho 24h (Brasil e Mercosul)
+🛠️ *Assistências*:
+- Guincho 24h
 - Carro reserva
-- Desconto na franquia
 - Proteção para vidros, faróis e lanternas
-- Motorista da vez
-- Concierge para sinistros
-- Cartório VIP (SP e RJ)
-- Rede de oficinas premium e consultor mecânico
+- Martelinho de Ouro
 
 💬 *Fale conosco:*
-☎️ (11) 2387-4606
 🔗 https://starvisaseguros.com.br/propostaOnline.html
 
 Digite *0* para voltar ao menu.`
@@ -123,17 +120,15 @@ Digite *0* para voltar ao menu.`
 
         case '4':
             await msg.reply(
-`🚛 *Seguro de Cargas – Starvisa Seguros*
+`🏠 *Seguro Residencial – Starvisa Seguros*
 
-✅ Proteção para cargas no transporte rodoviário, aéreo ou marítimo.
-✅ Cobertura contra roubo, furto, acidentes, avarias e danos.
-✅ Atende transportadoras, embarcadores e autônomos.
-✅ Cobertura nacional e internacional.
-✅ Assistência 24h em caso de sinistro.
-✅ Personalização para cada tipo de carga e rota.
+✅ Cobertura para incêndio.
+✅ Cobertura para danos elétricos.
+✅ Cobertura para vidros.
+✅ Cobertura para desmoronamento.
+✅ Cobertura para roubo.
 
 💬 *Fale conosco:*
-☎️ (11) 2387-4606
 🔗 https://starvisaseguros.com.br/propostaOnline.html
 
 Digite *0* para voltar ao menu.`
@@ -142,12 +137,41 @@ Digite *0* para voltar ao menu.`
 
         case '5':
             await msg.reply(
-`❓ *Outras dúvidas*
+`🏭 *Seguro Empresarial*
 
-Acesse nosso site ou fale diretamente com um atendente:
+✅ Cobertura para incêndios.
+✅ Cobertura para danos elétricos.
+✅ Cobertura para alagamentos.
+✅ Cobertura para fidelidade de empregados.
+✅ Cobertura responsabilidade civil.
+
+💬 *Fale conosco:*
+🔗 https://starvisaseguros.com.br/propostaOnline.html
+
+Digite *0* para voltar ao menu.`
+            );
+            return;
+
+        case '6':
+            await msg.reply(
+`💰 *Consórcio*
+
+✅ Auto
+✅ Imóvel
+✅ Pesados
 
 🔗 https://starvisaseguros.com.br
-☎️ (11) 2387-4606
+
+Digite *0* para voltar ao menu.`
+            );
+            return;
+
+        case '7':
+            await msg.reply(
+`🤔 *Demais Assuntos*
+
+💬 *Fale conosco:*
+🔗 https://starvisaseguros.com.br/propostaOnline.html
 
 Digite *0* para voltar ao menu.`
             );
@@ -171,8 +195,16 @@ Digite *0* para voltar ao menu.`
         await msg.reply('Digite *4* para informações sobre *Seguro de Cargas* 🚛');
         return;
     }
-    if (texto.includes('outras dúvidas')) {
-        await msg.reply('Digite *5* para *outras dúvidas* ❓');
+    if (texto.includes('seguro empresarial')) {
+        await msg.reply('Digite *5* para mais informações sobre *Seguro Empresarial* 🏭');
+        return;
+    }
+    if (texto.includes('consórcio')) {
+        await msg.reply('Digite *6* para mais informações sobre *Consórcio* 💰');
+        return;
+    }
+    if (texto.includes('demais assuntos')) {
+        await msg.reply('Digite *7* para mais informações sobre *Demais Assuntos* 🤔');
         return;
     }
 });
