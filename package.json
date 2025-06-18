@@ -6,12 +6,20 @@
   "scripts": {
     "start": "node index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "chatbot",
+    "whatsapp",
+    "starvisa",
+    "nodejs"
+  ],
   "author": "Wesley Monteiro",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
     "qrcode": "^1.5.1",
-    "whatsapp-web.js": "^1.21.0"
+    "whatsapp-web.js": "^1.24.0"
+  },
+  "engines": {
+    "node": ">=16"
   }
 }
