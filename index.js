@@ -9,7 +9,10 @@ const port = process.env.PORT || 3000;
 
 let qrCodeData = null;
 
+<<<<<<< HEAD
 // Configuração do WhatsApp Client
+=======
+>>>>>>> c11920e (Teste7)
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
@@ -27,7 +30,11 @@ client.on('qr', (qr) => {
     // QR Code na interface web
     qrcode.toDataURL(qr, (err, url) => {
         if (err) {
+<<<<<<< HEAD
             console.error('Erro ao gerar QR Code web:', err);
+=======
+            console.error('Erro ao gerar QR Code:', err);
+>>>>>>> c11920e (Teste7)
             return;
         }
         qrCodeData = url;
@@ -177,13 +184,23 @@ client.on('message', async msg => {
     }
 });
 
+<<<<<<< HEAD
 // Rota Web - Exibir QR Code no navegador
+=======
+// Página com atualização automática a cada 5 segundos
+>>>>>>> c11920e (Teste7)
 app.get('/', (req, res) => {
     if (qrCodeData) {
         res.send(`
-            <div style="text-align:center;">
+            <html>
+            <head>
+                <title>WhatsApp QR Code</title>
+                <meta http-equiv="refresh" content="5">
+            </head>
+            <body style="text-align:center; font-family: Arial, sans-serif;">
                 <h1>🤖 Escaneie o QR Code para conectar no WhatsApp</h1>
                 <img src="${qrCodeData}" style="width:300px;"/>
+<<<<<<< HEAD
                 <p>Após escanear, aguarde a conexão e atualize esta página.</p>
                 <p><a href="/logout">🗑️ Apagar sessão e gerar novo QR Code</a></p>
             </div>
@@ -194,15 +211,39 @@ app.get('/', (req, res) => {
                 <h1>✅ WhatsApp conectado!</h1>
                 <p><a href="/logout">🗑️ Apagar sessão e gerar novo QR Code</a></p>
             </div>
+=======
+                <p>Esta página atualiza a cada 5 segundos.</p>
+            </body>
+            </html>
+        `);
+    } else {
+        res.send(`
+            <html>
+            <head>
+                <title>WhatsApp Conectado</title>
+                <meta http-equiv="refresh" content="5">
+            </head>
+            <body style="text-align:center; font-family: Arial, sans-serif;">
+                <h1>✅ WhatsApp conectado!</h1>
+                <p>Recarregue esta página para gerar um novo QR Code, se necessário.</p>
+                <p><a href="/logout">🗑️ Apagar sessão</a></p>
+            </body>
+            </html>
+>>>>>>> c11920e (Teste7)
         `);
     }
 });
 
+<<<<<<< HEAD
 // Rota para logout - apagar sessão e reiniciar
+=======
+// Rota para logout e limpar sessão
+>>>>>>> c11920e (Teste7)
 app.get('/logout', async (req, res) => {
     try {
         await client.logout();
         fs.rmSync('./.wwebjs_auth', { recursive: true, force: true });
+<<<<<<< HEAD
         qrCodeData = null;
         res.send(`
             <div style="text-align:center;">
@@ -210,10 +251,28 @@ app.get('/logout', async (req, res) => {
                 <p>Atualize a página para gerar novo QR Code.</p>
                 <a href="/">Voltar</a>
             </div>
+=======
+        res.send(`
+            <html>
+            <body style="text-align:center; font-family: Arial, sans-serif;">
+                <h1>🗑️ Sessão apagada.</h1>
+                <p>Atualize a página para gerar novo QR Code.</p>
+                <p><a href="/">Voltar</a></p>
+            </body>
+            </html>
+>>>>>>> c11920e (Teste7)
         `);
         console.log('🗑️ Sessão apagada.');
     } catch (error) {
-        res.send('❌ Erro ao apagar sessão.');
+        res.send(`
+            <html>
+            <body style="text-align:center; font-family: Arial, sans-serif;">
+                <h1>❌ Erro ao apagar sessão.</h1>
+                <p>${error}</p>
+                <p><a href="/">Voltar</a></p>
+            </body>
+            </html>
+        `);
         console.error('❌ Erro ao apagar sessão:', error);
     }
 });
